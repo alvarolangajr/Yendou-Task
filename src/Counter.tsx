@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useCounter } from './CounterContext';
 
 type CounterProps = {
@@ -6,6 +7,14 @@ type CounterProps = {
 
 function Counter({ onIncrement }: CounterProps) {
   const { count, increment, reset } = useCounter();
+
+  const [animating, setAnimating] = useState(false);
+
+  useEffect(() => {
+    setAnimating(true);
+    const t = setTimeout(() => setAnimating(false), 300);
+    return () => clearTimeout(t);
+  }, [count]);
 
   const handleIncrement = () => {
     const next = increment();
@@ -19,7 +28,7 @@ function Counter({ onIncrement }: CounterProps) {
 
       <div className="display">
         <span className="label">Current count</span>
-        <span className="value">{count}</span>
+        <span className={`value ${animating ? 'animate' : ''}`}>{count}</span>
       </div>
 
       <div className="actions">
