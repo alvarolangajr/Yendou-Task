@@ -1,5 +1,11 @@
+import { CounterProvider } from './CounterContext';
+
 function App() {
-  return <div>Loading...</div>;
+  return (
+    <CounterProvider>
+      <div>Counter app</div>
+    </CounterProvider>
+  );
 }
 
 export default App;
